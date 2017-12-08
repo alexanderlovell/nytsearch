@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>group project</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+    integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  </head>
+  <body>
+<div id="topSection">
+<div class="jumbotron">
+  <h1>New York Times</h1>
+</div>
+</div>
+
+
+<div id="searchParams">
+<form>
+  <div class="form-group">
+    <label for="search-term">Search Term</label>
+    <input type="text" class="form-control" id="search-term-id" placeholder="">
+  </div>
+    
+<div class="form-group">
+  <a class="btn btn-primary btn-select btn-select-light">
+    <input type="hidden" class="btn-select-input" id="number-records-id" name="records" value="5" />
+//     <span class="btn-select-value">Select a Record</span>
+    <span class='btn-select-arrow glyphicon glyphicon-chevron-down'></span>
+    <ul>
+        <li>1</li>
+        <li class="selected">5</li>
+        <li>10</li>
+    </ul>
+</a>
+</div>
+
+   <div class="form-group">
+    <label for="start-year">Start Year</label>
+    <input type="text" class="form-control" id="start-year-id" placeholder="">
+  </div>
+   <div class="form-group">
+    <label for="end-year">End Year</label>
+    <input type="text" class="form-control" id="end-year-id" placeholder="">
+  </div>
+  <button type="submit" class="btn btn-default search" id="submit-button">Search</button>
+</form>
+  <button type="submit" class="btn btn-default clear" id="clear-button">Clear Results</button>
+</form>
+</div>
+
+
+
+<div id="top-articles">
+
+</div>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+  integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+  crossorigin="anonymous"></script>
+  <script>
+
+		$(".search").on("click", function(event){
+       event.preventDefault();
+       var query = $("#search-term-id").val().trim()
+       var urlL = "https://api.nytimes.com/svc/search/v2/articlesearch.json";
+   				urlL += '?' + $.param ({
+             'api-key': "d4ebde11eac041f28400a9a5edac34aa",
+             'q': query,
+   //           'begin_date': "1970"
+           });
+
+       $.ajax({
+         url: urlL,
+         method: "GET"
+       }).done(function(data) {
+        //  console.log(data);
+
+         for (var i = 0; i < 5; i++) {
+				console.log(data.response.docs[i])
+     }
+
+
+     });
+  });
+
+
+
+
+  </script>
+  </body>
+</html>
